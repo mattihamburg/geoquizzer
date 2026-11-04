@@ -537,7 +537,7 @@ button,input,select{font-family:inherit;color:inherit}
     </div>
     <div id="mqPlay" class="screen hidden" style="padding:0">
       <div class="top-row"><span id="mqQn" class="stk">Frage 1/10</span><span class="score" id="mqSc">0 richtig</span></div>
-      <div class="mqprompt">Wo liegt<b id="mqName">–</b></div>
+      <div class="mqprompt">Wo liegt<b id="mqAsk">–</b></div>
       <div class="mapbox"><svg id="mqSvg" role="img" aria-label="Weltkarte zum Antippen"></svg><div class="zoom"><button type="button" id="mqIn" aria-label="Vergrößern">+</button><button type="button" id="mqOut" aria-label="Verkleinern">−</button></div></div>
       <div class="mqfb" id="mqFb"></div>
       <button class="btn hidden" id="mqNext" type="button">Weiter</button>
@@ -1962,7 +1962,7 @@ if (LANG === "en") FLAGS.forEach(function(f){f.name = f.ne; if (f.cap) f.cap = f
     mqApplyVB();
     $("mqQn").textContent = _t("Frage ") + (mq.i + 1) + "/" + mq.q.length;
     $("mqSc").textContent = mq.ok + _t(" richtig");
-    $("mqName").textContent = f.name;
+    $("mqAsk").textContent = f.name;
     $("mqFb").textContent = ""; $("mqFb").className = "mqfb";
     $("mqNext").classList.add("hidden");
     $("mqNext").textContent = mq.i === mq.q.length - 1 ? _t("Ergebnis") : _t("Weiter");
