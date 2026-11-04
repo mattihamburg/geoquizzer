@@ -1284,7 +1284,6 @@ if (LANG === "en") FLAGS.forEach(function(f){f.name = f.ne; if (f.cap) f.cap = f
   function begin(){
     var name = cleanName();
     if (!name) return;
-    touchStreak();
     var lvl = chosen("lvl", "0"), cont = chosen("cont", "all"), n = parseInt(chosen("n", "10"), 10);
     if (MODE === "duel"){
       DCAT = chosen("cat", "h");
@@ -2033,7 +2032,6 @@ if (LANG === "en") FLAGS.forEach(function(f){f.name = f.ne; if (f.cap) f.cap = f
   function shuf(a){a = a.slice(); for (var i = a.length - 1; i > 0; i--){var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t} return a}
   function mqStart(){
     var nm = $("mqName").value.replace(/\s+/g, " ").trim(); if (!nm) return;
-    touchStreak();
     sessName = nm; try{ sessionStorage.setItem("flaggen-name", nm) }catch(e){}
     mq.t0 = Date.now();
     mq.q = shuf(mq.prac ? mqPool(0).filter(function(f){return loadArr("flaggen-falsch-mq").indexOf(f.code) >= 0}) : mqPool(mq.reg)).slice(0, 10); mq.i = 0; mq.ok = 0; mq.wrong = [];
@@ -2251,7 +2249,6 @@ if (LANG === "en") FLAGS.forEach(function(f){f.name = f.ne; if (f.cap) f.cap = f
   function tqFmt(ms){var t = Math.ceil(ms / 1000); return Math.floor(t / 60) + ":" + ("0" + (t % 60)).slice(-2)}
   function tqStart(){
     var nm = $("tqName").value.replace(/\s+/g, " ").trim(); if (!nm) return;
-    touchStreak();
     sessName = nm; try{ sessionStorage.setItem("flaggen-name", nm) }catch(e){}
     var pool = FLAGS.filter(function(f){
       if (!MAPD.paths[f.code] && !(tq.reg > 0 && MAPD.dots[f.code])) return false;
@@ -2494,7 +2491,6 @@ if (LANG === "en") FLAGS.forEach(function(f){f.name = f.ne; if (f.cap) f.cap = f
   }
   function kqStart(){
     var nm = $("kqName").value.replace(/\s+/g, " ").trim(); if (!nm) return;
-    touchStreak();
     sessName = nm; try{ sessionStorage.setItem("flaggen-name", nm) }catch(e){}
     kq.t0 = Date.now();
     var list = kqAllowed(), used = {}, ch = [];
@@ -2785,10 +2781,8 @@ if (LANG === "en") FLAGS.forEach(function(f){f.name = f.ne; if (f.cap) f.cap = f
       var pl = mysPlayedToday();
       if (pl){mys.t = mysDaily(); mys.daily = true; mys.res = pl; mysShowEnd(true); return}
       if (!mysSetName()) return;
-      touchStreak();
       mys.t = mysDaily();
     } else {
-      touchStreak();
       var l = mysList(), p; do{p = byCode(l[Math.floor(Math.random() * l.length)])} while (mys.t && p.code === mys.t.code && l.length > 1);
       mys.t = p;
     }
@@ -2883,8 +2877,7 @@ if (LANG === "en") FLAGS.forEach(function(f){f.name = f.ne; if (f.cap) f.cap = f
     var hit = null; FLAGS.forEach(function(f){if (!hit && tqMatch(f, inp, !force)) hit = f});
     var fb = $("mysFb");
     if (!hit){if (force){fb.textContent = _t("Nicht dabei – oder falsch geschrieben."); fb.className = "mqfb bad"} return}
-    touchStreak();
-    if (hit.code === mys.t.code){$("mysIn").value = ""; mysFinish(true); return}
+    if (hit.code === mys.t.code){touchStreak(); $("mysIn").value = ""; mysFinish(true); return}
     $("mysIn").value = ""; $("mysSug").innerHTML = "";
     if (mys.tried[hit.code]){fb.textContent = hit.name + _t(" hast du schon probiert."); return}
     mys.tried[hit.code] = 1; mys.wrong.push(hit.name); fb.textContent = ""; mysRender();
@@ -2923,7 +2916,7 @@ if (LANG === "en") FLAGS.forEach(function(f){f.name = f.ne; if (f.cap) f.cap = f
   $("mysIn").addEventListener("input", function(){mysSuggest(); mysGuess(false)});
   $("mysIn").addEventListener("keydown", function(e){if (e.key === "Enter"){e.preventDefault(); mysGuess(true)}});
   $("mysOk").addEventListener("click", function(){mysGuess(true); $("mysIn").focus()});
-  $("mysNext").addEventListener("click", function(){if (mys.t && !mys.done && mys.stage < 5){touchStreak(); mys.stage++; mysRender()}});
+  $("mysNext").addEventListener("click", function(){if (mys.t && !mys.done && mys.stage < 5){mys.stage++; mysRender()}});
   $("mysGive").addEventListener("click", function(){if (mys.t && !mys.done) mysFinish(false)});
   $("mysCancel").addEventListener("click", function(){mys.done = true; mysSync(); mysView("mysStart")});
   $("mysAgain").addEventListener("click", function(){mysStart(false)});
