@@ -2049,6 +2049,7 @@ if (LANG === "en") FLAGS.forEach(function(f){f.name = f.ne; if (f.cap) f.cap = f
     }
     $("mqSc").textContent = mq.ok + _t(" richtig");
     $("mqNext").classList.remove("hidden");
+    clearTimeout(mq.adv); mq.adv = setTimeout(function(){if (mq.done && !$("mqPlay").classList.contains("hidden")) $("mqNext").click()}, c === f.code ? 900 : 1800);
   }
   function mqEnd(){
     var S = mqStats(), n = mq.q.length;
@@ -2092,9 +2093,10 @@ if (LANG === "en") FLAGS.forEach(function(f){f.name = f.ne; if (f.cap) f.cap = f
   $("modeMap").addEventListener("click", mqOpen);
     $("mqGo").addEventListener("click", function(){mq.prac = false; mqStart()});
   $("mqNext").addEventListener("click", function(){
+    clearTimeout(mq.adv);
     if (mq.i >= mq.q.length - 1) mqEnd(); else {mq.i++; mqQ()}
   });
-  $("mqCancel").addEventListener("click", function(){mqView("mqSetup"); mqShowBest()});
+  $("mqCancel").addEventListener("click", function(){clearTimeout(mq.adv); mqView("mqSetup"); mqShowBest()});
   $("mqAgain").addEventListener("click", mqStart);
   $("mqMenu").addEventListener("click", function(){show("home")});
 
